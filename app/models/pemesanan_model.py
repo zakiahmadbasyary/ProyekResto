@@ -35,4 +35,22 @@ class PemesananModel:
             WHERE p.id_pemesanan = %s
         """, (id_pemesanan,))
         return cursor.fetchone()
+    
+    @staticmethod
+    def get_meja_by_pemesanan(id_pemesanan):
+        db = get_db()
+        cursor = db.cursor(dictionary=True)
+        cursor.execute(
+            "SELECT id_meja FROM pemesanan WHERE id_pemesanan=%s",
+            (id_pemesanan,)
+        )
+        return cursor.fetchone()
+    
+    @staticmethod
+    def delete(id_pemesanan):
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute("DELETE FROM pemesanan WHERE id_pemesanan=%s", (id_pemesanan,))
+        db.commit()
+
 

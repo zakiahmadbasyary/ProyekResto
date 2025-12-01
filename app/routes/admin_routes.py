@@ -54,3 +54,28 @@ def struk(id):
 
     return render_template('struk.html', p=data)
 
+@admin.route('/pemesanan/<int:id>/hapus', methods=['POST'])
+def hapus_pemesanan(id):
+    if 'admin_logged_in' not in session:
+        return redirect('/login')
+
+    from app.models.pemesanan_model import PemesananModel
+    from app.database import get_db
+
+    # ambil meja yg digunakan transaksi
+    data = PemesananModel.get_meja_by_pemesanan(id)
+
+    if data:
+        id_meja = data['id_meja']
+
+        # hapus transaksi
+        PemesananModel.delete(id)
+
+        # kosongkan meja (update status)
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute("UPDATE meja SET status='Kosong' WHERE id_meja=%s", (id_meja,))
+        db.commit()
+
+    return redirect('/dashboard')
+

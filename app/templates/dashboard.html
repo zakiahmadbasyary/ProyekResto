@@ -88,13 +88,25 @@
             <td>{{ p.nama_produk }}</td>
             <td>{{ p.tanggal }}</td>
             <td>
+
                 <a href="/pemesanan/{{ p.id_pemesanan }}/struk">
                     <button>Lihat Struk</button>
                 </a>
+
+                <form action="/pemesanan/{{ p.id_pemesanan }}/hapus" method="POST" style="display:inline;">
+                    <button 
+                        type="submit" 
+                        onclick="return confirm('Yakin ingin menghapus transaksi ini?')"
+                        style="background: red; color:white;">
+                        Hapus
+                    </button>
+                </form>
+
             </td>
         </tr>
         {% endfor %}
     </table>
+
 
 
     <h2 style="text-align: center;">Tabel Status Meja</h2>
