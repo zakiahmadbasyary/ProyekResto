@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dinasty Restaurant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 8px;
+        }
+        th {
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <h1>Dinasty Restaurant</h1>
+            <p>Restaurant keluarga terpercaya dengan layanan digital</p>
+        </div>
+
+        <div>
+            <a href="/login" style="font-size: 18px; text-decoration: none;">
+                Login Admin
+            </a>
+        </div>
+    </div>
+
+
+    <hr>
+
+    <h2>Tabel Transaksi Pemesanan</h2>
+    <table border="1" width="100%">
+        <tr>
+            <th>Nama</th>
+            <th>No HP</th>
+            <th>Meja</th>
+            <th>Produk</th>
+            <th>Tanggal</th>
+        </tr>
+        {% for p in pemesanan %}
+        <tr>
+            <td>{{ p.nama_pelanggan }}</td>
+            <td>{{ p.nohp_pelanggan }}</td>
+            <td>{{ p.id_meja }}</td>
+            <td>{{ p.nama_produk }}</td>
+            <td>{{ p.tanggal }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <hr>
+
+    <h2>Tabel Status Meja</h2>
+    <table border="1" width="100%">
+        <tr>
+            <th>No Meja</th>
+            <th>Kapasitas</th>
+            <th>Status</th>
+        </tr>
+        {% for m in meja %}
+        <tr>
+            <td>{{ m.no_meja }}</td>
+            <td>{{ m.kapasitas }}</td>
+            <td>{{ m.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <hr>
+
+    <h2>Form Pemesanan</h2>
+
+    <form method="POST" action="/pengguna/pesan">
+        <label>Nama Pelanggan:</label><br>
+        <input type="text" name="nama" required><br><br>
+
+        <label>No HP:</label><br>
+        <input type="text" name="nohp" required><br><br>
+
+        <label>Pilih Meja:</label><br>
+        <select name="id_meja" required>
+            {% for m in meja %}
+                {% if m.status == 'Kosong' %}
+                <option value="{{ m.id_meja }}">
+                    Meja {{ m.no_meja }} ({{ m.kapasitas }} orang)
+                </option>
+                {% endif %}
+            {% endfor %}
+        </select><br><br>
+
+        <label>Pilih Produk:</label><br>
+        <select name="id_produk" required>
+            {% for p in produk %}
+            <option value="{{ p.id_produk }}">
+                {{ p.nama }} - Rp {{ p.harga }}
+            </option>
+            {% endfor %}
+        </select><br><br>
+        
+        <br>
+        <button type="submit">Pesan Sekarang</button>
+    </form>
+
+    </div>
+
+</body>
+</html>

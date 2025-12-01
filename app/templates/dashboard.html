@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f7f7f7;
+        }
+
+        .header {
+            background: #ddd;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .menu a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 40px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+            background: white;
+        }
+
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        table th {
+            background: #eee;
+        }
+
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">Dinasty Restaurant</div>
+
+    <div class="menu">
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <h2 style="margin-top: 20px; text-align: center;">Tabel Laporan Transaksi Pemesanan</h2>
+
+    <table>
+        <tr>
+            <th>Nama</th>
+            <th>No HP</th>
+            <th>Meja</th>
+            <th>Produk</th>
+            <th>Tanggal</th>
+            <th>Aksi</th>
+        </tr>
+
+        {% for p in pemesanan %}
+        <tr>
+            <td>{{ p.nama_pelanggan }}</td>
+            <td>{{ p.nohp_pelanggan }}</td>
+            <td>{{ p.id_meja }}</td>
+            <td>{{ p.nama_produk }}</td>
+            <td>{{ p.tanggal }}</td>
+            <td>
+                <a href="/pemesanan/{{ p.id_pemesanan }}/struk">
+                    <button>Lihat Struk</button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <h2 style="text-align: center;">Tabel Status Meja</h2>
+
+    <table>
+        <tr>
+            <th>No Meja</th>
+            <th>Kapasitas</th>
+            <th>Status</th>
+            <th>Aksi</th>
+        </tr>
+
+        {% for m in meja %}
+        <tr>
+            <td>{{ m.no_meja }}</td>
+            <td>{{ m.kapasitas }}</td>
+            <td>{{ m.status }}</td>
+            <td>
+                <form action="/ubah_status_meja" method="POST" style="margin:0;">
+                    <input type="hidden" name="id_meja" value="{{ m.id_meja }}">
+                    {% if m.status == 'Kosong' %}
+                        <input type="hidden" name="status" value="Terisi">
+                        <button type="submit">Isi Meja</button>
+                    {% else %}
+                        <input type="hidden" name="status" value="Kosong">
+                        <button type="submit">Kosongkan</button>
+                    {% endif %}
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+</body>
+</html>

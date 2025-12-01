@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Struk Pemesanan</title>
+    <style>
+        body { font-family: Arial; background:#f7f7f7; padding:20px; }
+        .box {
+            background:white; padding:30px;
+            width:400px; margin:auto; border-radius:10px;
+            box-shadow:0px 0px 8px rgba(0,0,0,0.2);
+        }
+        h2 { text-align:center; }
+        .row { margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Struk Pemesanan</h2>
+
+    <div class="row"><b>ID Pemesanan:</b> {{ p.id_pemesanan }}</div>
+    <div class="row"><b>Nama:</b> {{ p.nama_pelanggan }}</div>
+    <div class="row"><b>No HP:</b> {{ p.nohp_pelanggan }}</div>
+    <div class="row"><b>No Meja:</b> {{ p.id_meja }}</div>
+    <div class="row"><b>Produk:</b> {{ p.nama_produk }}</div>
+    
+    {% if p.harga %}
+    <div class="row"><b>Harga Produk:</b> Rp {{ p.harga }}</div>
+    {% endif %}
+
+    <div class="row"><b>Tanggal:</b> {{ p.tanggal }}</div>
+
+    <br>
+    <a href="/dashboard"><button>Kembali</button></a>
+</div>
+
+</body>
+</html>
