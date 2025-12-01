@@ -42,6 +42,7 @@ Struktur database mengikuti relasi dasar restoran.
 ---
 
 ## 📁 Struktur Folder
+```bash
 ProyekResto/
 │
 ├── app/
@@ -68,7 +69,7 @@ ProyekResto/
 ├── venv/ (opsional)
 ├── requirements.txt
 └── README.md
-
+```
 
 ---
 
