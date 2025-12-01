@@ -4,14 +4,16 @@ from .database import get_db, close_db
 def create_app():
     app = Flask(__name__)
 
+    # Menentukan SECRET_KEY
     app.config['SECRET_KEY'] = 'secretkey'
 
-    # DB Config
+    # DB Config 
     app.config['MYSQL_HOST'] = 'localhost'
     app.config['MYSQL_USER'] = 'root'
     app.config['MYSQL_PASSWORD'] = ''
     app.config['MYSQL_DATABASE'] = 'resto'
 
+    # Menutup koneksi database otomatis
     @app.teardown_appcontext
     def teardown_db(exception):
         close_db()

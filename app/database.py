@@ -1,6 +1,7 @@
 import mysql.connector
 from flask import current_app, g
 
+# Function to get a database connection
 def get_db():
     if 'db' not in g:
         g.db = mysql.connector.connect(
@@ -11,6 +12,7 @@ def get_db():
         )
     return g.db
 
+# Function to close the database connection
 def close_db(e=None):
     db = g.pop('db', None)
     if db is not None:

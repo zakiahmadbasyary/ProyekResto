@@ -75,57 +75,67 @@ app<wbr>.<a href="./../models.html">models</a><wbr>.pemesanan_model    </h1>
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">app.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_db</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PemesananModel</span><span class="p">:</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="s2">            SELECT p.*, pr.nama AS nama_produk</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="s2">            FROM pemesanan p</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="s2">            JOIN produk pr ON p.id_produk = pr.id_produk</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="s2">            ORDER BY p.id_pemesanan DESC</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">tambah</span><span class="p">(</span><span class="n">nama</span><span class="p">,</span> <span class="n">nohp</span><span class="p">,</span> <span class="n">id_meja</span><span class="p">,</span> <span class="n">id_produk</span><span class="p">,</span> <span class="n">id_admin</span><span class="p">):</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="s2">            INSERT INTO pemesanan (nama_pelanggan, nohp_pelanggan, id_meja, id_produk, id_admin)</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="s2">            VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">nama</span><span class="p">,</span> <span class="n">nohp</span><span class="p">,</span> <span class="n">id_meja</span><span class="p">,</span> <span class="n">id_produk</span><span class="p">,</span> <span class="n">id_admin</span><span class="p">))</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>        <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_by_id</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="s2">            SELECT p.*, pr.nama AS nama_produk, pr.harga</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="s2">            FROM pemesanan p</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="s2">            JOIN produk pr ON p.id_produk = pr.id_produk</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="s2">            WHERE p.id_pemesanan = </span><span class="si">%s</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,))</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_meja_by_pemesanan</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>            <span class="s2">&quot;SELECT id_meja FROM pemesanan WHERE id_pemesanan=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>            <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,)</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>        <span class="p">)</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>    
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DELETE FROM pemesanan WHERE id_pemesanan=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,))</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>        <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot; Model untuk Pemesanan &quot;&quot;&quot;</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil semua data pemesanan dari database &quot;&quot;&quot;</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="s2">            SELECT p.*, pr.nama AS nama_produk</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="s2">            FROM pemesanan p</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="s2">            JOIN produk pr ON p.id_produk = pr.id_produk</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="s2">            ORDER BY p.id_pemesanan DESC</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">tambah</span><span class="p">(</span><span class="n">nama</span><span class="p">,</span> <span class="n">nohp</span><span class="p">,</span> <span class="n">id_meja</span><span class="p">,</span> <span class="n">id_produk</span><span class="p">,</span> <span class="n">id_admin</span><span class="p">):</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Menambah data pemesanan baru ke database &quot;&quot;&quot;</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> 
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="s2">            INSERT INTO pemesanan (nama_pelanggan, nohp_pelanggan, id_meja, id_produk, id_admin)</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="s2">            VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">nama</span><span class="p">,</span> <span class="n">nohp</span><span class="p">,</span> <span class="n">id_meja</span><span class="p">,</span> <span class="n">id_produk</span><span class="p">,</span> <span class="n">id_admin</span><span class="p">))</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>        <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_by_id</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil data pemesanan berdasarkan ID &quot;&quot;&quot;</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="s2">            SELECT p.*, pr.nama AS nama_produk, pr.harga</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="s2">            FROM pemesanan p</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="s2">            JOIN produk pr ON p.id_produk = pr.id_produk</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="s2">            WHERE p.id_pemesanan = </span><span class="si">%s</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,))</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>    
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_meja_by_pemesanan</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil meja yang digunakan dalam pemesanan tertentu &quot;&quot;&quot;</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>            <span class="s2">&quot;SELECT id_meja FROM pemesanan WHERE id_pemesanan=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>            <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,)</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>        <span class="p">)</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>    
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>    
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Menghapus data pemesanan berdasarkan ID &quot;&quot;&quot;</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DELETE FROM pemesanan WHERE id_pemesanan=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,))</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>        <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
 </span></pre></div>
 
 
@@ -142,61 +152,73 @@ app<wbr>.<a href="./../models.html">models</a><wbr>.pemesanan_model    </h1>
     </div>
     <a class="headerlink" href="#PemesananModel"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="PemesananModel-4"><a href="#PemesananModel-4"><span class="linenos"> 4</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PemesananModel</span><span class="p">:</span>
-</span><span id="PemesananModel-5"><a href="#PemesananModel-5"><span class="linenos"> 5</span></a>
-</span><span id="PemesananModel-6"><a href="#PemesananModel-6"><span class="linenos"> 6</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="PemesananModel-7"><a href="#PemesananModel-7"><span class="linenos"> 7</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
-</span><span id="PemesananModel-8"><a href="#PemesananModel-8"><span class="linenos"> 8</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="PemesananModel-9"><a href="#PemesananModel-9"><span class="linenos"> 9</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="PemesananModel-10"><a href="#PemesananModel-10"><span class="linenos">10</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-</span><span id="PemesananModel-11"><a href="#PemesananModel-11"><span class="linenos">11</span></a><span class="s2">            SELECT p.*, pr.nama AS nama_produk</span>
-</span><span id="PemesananModel-12"><a href="#PemesananModel-12"><span class="linenos">12</span></a><span class="s2">            FROM pemesanan p</span>
-</span><span id="PemesananModel-13"><a href="#PemesananModel-13"><span class="linenos">13</span></a><span class="s2">            JOIN produk pr ON p.id_produk = pr.id_produk</span>
-</span><span id="PemesananModel-14"><a href="#PemesananModel-14"><span class="linenos">14</span></a><span class="s2">            ORDER BY p.id_pemesanan DESC</span>
-</span><span id="PemesananModel-15"><a href="#PemesananModel-15"><span class="linenos">15</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
-</span><span id="PemesananModel-16"><a href="#PemesananModel-16"><span class="linenos">16</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
-</span><span id="PemesananModel-17"><a href="#PemesananModel-17"><span class="linenos">17</span></a>
-</span><span id="PemesananModel-18"><a href="#PemesananModel-18"><span class="linenos">18</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="PemesananModel-19"><a href="#PemesananModel-19"><span class="linenos">19</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">tambah</span><span class="p">(</span><span class="n">nama</span><span class="p">,</span> <span class="n">nohp</span><span class="p">,</span> <span class="n">id_meja</span><span class="p">,</span> <span class="n">id_produk</span><span class="p">,</span> <span class="n">id_admin</span><span class="p">):</span>
-</span><span id="PemesananModel-20"><a href="#PemesananModel-20"><span class="linenos">20</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="PemesananModel-21"><a href="#PemesananModel-21"><span class="linenos">21</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-</span><span id="PemesananModel-22"><a href="#PemesananModel-22"><span class="linenos">22</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-</span><span id="PemesananModel-23"><a href="#PemesananModel-23"><span class="linenos">23</span></a><span class="s2">            INSERT INTO pemesanan (nama_pelanggan, nohp_pelanggan, id_meja, id_produk, id_admin)</span>
-</span><span id="PemesananModel-24"><a href="#PemesananModel-24"><span class="linenos">24</span></a><span class="s2">            VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)</span>
-</span><span id="PemesananModel-25"><a href="#PemesananModel-25"><span class="linenos">25</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">nama</span><span class="p">,</span> <span class="n">nohp</span><span class="p">,</span> <span class="n">id_meja</span><span class="p">,</span> <span class="n">id_produk</span><span class="p">,</span> <span class="n">id_admin</span><span class="p">))</span>
-</span><span id="PemesananModel-26"><a href="#PemesananModel-26"><span class="linenos">26</span></a>        <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-</span><span id="PemesananModel-27"><a href="#PemesananModel-27"><span class="linenos">27</span></a>
-</span><span id="PemesananModel-28"><a href="#PemesananModel-28"><span class="linenos">28</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="PemesananModel-29"><a href="#PemesananModel-29"><span class="linenos">29</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_by_id</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
-</span><span id="PemesananModel-30"><a href="#PemesananModel-30"><span class="linenos">30</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="PemesananModel-31"><a href="#PemesananModel-31"><span class="linenos">31</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="PemesananModel-32"><a href="#PemesananModel-32"><span class="linenos">32</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-</span><span id="PemesananModel-33"><a href="#PemesananModel-33"><span class="linenos">33</span></a><span class="s2">            SELECT p.*, pr.nama AS nama_produk, pr.harga</span>
-</span><span id="PemesananModel-34"><a href="#PemesananModel-34"><span class="linenos">34</span></a><span class="s2">            FROM pemesanan p</span>
-</span><span id="PemesananModel-35"><a href="#PemesananModel-35"><span class="linenos">35</span></a><span class="s2">            JOIN produk pr ON p.id_produk = pr.id_produk</span>
-</span><span id="PemesananModel-36"><a href="#PemesananModel-36"><span class="linenos">36</span></a><span class="s2">            WHERE p.id_pemesanan = </span><span class="si">%s</span>
-</span><span id="PemesananModel-37"><a href="#PemesananModel-37"><span class="linenos">37</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,))</span>
-</span><span id="PemesananModel-38"><a href="#PemesananModel-38"><span class="linenos">38</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
-</span><span id="PemesananModel-39"><a href="#PemesananModel-39"><span class="linenos">39</span></a>    
-</span><span id="PemesananModel-40"><a href="#PemesananModel-40"><span class="linenos">40</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="PemesananModel-41"><a href="#PemesananModel-41"><span class="linenos">41</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_meja_by_pemesanan</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
-</span><span id="PemesananModel-42"><a href="#PemesananModel-42"><span class="linenos">42</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="PemesananModel-43"><a href="#PemesananModel-43"><span class="linenos">43</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="PemesananModel-44"><a href="#PemesananModel-44"><span class="linenos">44</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-</span><span id="PemesananModel-45"><a href="#PemesananModel-45"><span class="linenos">45</span></a>            <span class="s2">&quot;SELECT id_meja FROM pemesanan WHERE id_pemesanan=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-</span><span id="PemesananModel-46"><a href="#PemesananModel-46"><span class="linenos">46</span></a>            <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,)</span>
-</span><span id="PemesananModel-47"><a href="#PemesananModel-47"><span class="linenos">47</span></a>        <span class="p">)</span>
-</span><span id="PemesananModel-48"><a href="#PemesananModel-48"><span class="linenos">48</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
-</span><span id="PemesananModel-49"><a href="#PemesananModel-49"><span class="linenos">49</span></a>    
-</span><span id="PemesananModel-50"><a href="#PemesananModel-50"><span class="linenos">50</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="PemesananModel-51"><a href="#PemesananModel-51"><span class="linenos">51</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
-</span><span id="PemesananModel-52"><a href="#PemesananModel-52"><span class="linenos">52</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="PemesananModel-53"><a href="#PemesananModel-53"><span class="linenos">53</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-</span><span id="PemesananModel-54"><a href="#PemesananModel-54"><span class="linenos">54</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DELETE FROM pemesanan WHERE id_pemesanan=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,))</span>
-</span><span id="PemesananModel-55"><a href="#PemesananModel-55"><span class="linenos">55</span></a>        <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</span><span id="PemesananModel-5"><a href="#PemesananModel-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot; Model untuk Pemesanan &quot;&quot;&quot;</span>
+</span><span id="PemesananModel-6"><a href="#PemesananModel-6"><span class="linenos"> 6</span></a>    
+</span><span id="PemesananModel-7"><a href="#PemesananModel-7"><span class="linenos"> 7</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="PemesananModel-8"><a href="#PemesananModel-8"><span class="linenos"> 8</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
+</span><span id="PemesananModel-9"><a href="#PemesananModel-9"><span class="linenos"> 9</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil semua data pemesanan dari database &quot;&quot;&quot;</span>
+</span><span id="PemesananModel-10"><a href="#PemesananModel-10"><span class="linenos">10</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="PemesananModel-11"><a href="#PemesananModel-11"><span class="linenos">11</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="PemesananModel-12"><a href="#PemesananModel-12"><span class="linenos">12</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="PemesananModel-13"><a href="#PemesananModel-13"><span class="linenos">13</span></a><span class="s2">            SELECT p.*, pr.nama AS nama_produk</span>
+</span><span id="PemesananModel-14"><a href="#PemesananModel-14"><span class="linenos">14</span></a><span class="s2">            FROM pemesanan p</span>
+</span><span id="PemesananModel-15"><a href="#PemesananModel-15"><span class="linenos">15</span></a><span class="s2">            JOIN produk pr ON p.id_produk = pr.id_produk</span>
+</span><span id="PemesananModel-16"><a href="#PemesananModel-16"><span class="linenos">16</span></a><span class="s2">            ORDER BY p.id_pemesanan DESC</span>
+</span><span id="PemesananModel-17"><a href="#PemesananModel-17"><span class="linenos">17</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
+</span><span id="PemesananModel-18"><a href="#PemesananModel-18"><span class="linenos">18</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+</span><span id="PemesananModel-19"><a href="#PemesananModel-19"><span class="linenos">19</span></a>
+</span><span id="PemesananModel-20"><a href="#PemesananModel-20"><span class="linenos">20</span></a>    
+</span><span id="PemesananModel-21"><a href="#PemesananModel-21"><span class="linenos">21</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="PemesananModel-22"><a href="#PemesananModel-22"><span class="linenos">22</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">tambah</span><span class="p">(</span><span class="n">nama</span><span class="p">,</span> <span class="n">nohp</span><span class="p">,</span> <span class="n">id_meja</span><span class="p">,</span> <span class="n">id_produk</span><span class="p">,</span> <span class="n">id_admin</span><span class="p">):</span>
+</span><span id="PemesananModel-23"><a href="#PemesananModel-23"><span class="linenos">23</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Menambah data pemesanan baru ke database &quot;&quot;&quot;</span>
+</span><span id="PemesananModel-24"><a href="#PemesananModel-24"><span class="linenos">24</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="PemesananModel-25"><a href="#PemesananModel-25"><span class="linenos">25</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> 
+</span><span id="PemesananModel-26"><a href="#PemesananModel-26"><span class="linenos">26</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="PemesananModel-27"><a href="#PemesananModel-27"><span class="linenos">27</span></a><span class="s2">            INSERT INTO pemesanan (nama_pelanggan, nohp_pelanggan, id_meja, id_produk, id_admin)</span>
+</span><span id="PemesananModel-28"><a href="#PemesananModel-28"><span class="linenos">28</span></a><span class="s2">            VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)</span>
+</span><span id="PemesananModel-29"><a href="#PemesananModel-29"><span class="linenos">29</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">nama</span><span class="p">,</span> <span class="n">nohp</span><span class="p">,</span> <span class="n">id_meja</span><span class="p">,</span> <span class="n">id_produk</span><span class="p">,</span> <span class="n">id_admin</span><span class="p">))</span>
+</span><span id="PemesananModel-30"><a href="#PemesananModel-30"><span class="linenos">30</span></a>        <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</span><span id="PemesananModel-31"><a href="#PemesananModel-31"><span class="linenos">31</span></a>
+</span><span id="PemesananModel-32"><a href="#PemesananModel-32"><span class="linenos">32</span></a>    
+</span><span id="PemesananModel-33"><a href="#PemesananModel-33"><span class="linenos">33</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="PemesananModel-34"><a href="#PemesananModel-34"><span class="linenos">34</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_by_id</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
+</span><span id="PemesananModel-35"><a href="#PemesananModel-35"><span class="linenos">35</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil data pemesanan berdasarkan ID &quot;&quot;&quot;</span>
+</span><span id="PemesananModel-36"><a href="#PemesananModel-36"><span class="linenos">36</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="PemesananModel-37"><a href="#PemesananModel-37"><span class="linenos">37</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="PemesananModel-38"><a href="#PemesananModel-38"><span class="linenos">38</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="PemesananModel-39"><a href="#PemesananModel-39"><span class="linenos">39</span></a><span class="s2">            SELECT p.*, pr.nama AS nama_produk, pr.harga</span>
+</span><span id="PemesananModel-40"><a href="#PemesananModel-40"><span class="linenos">40</span></a><span class="s2">            FROM pemesanan p</span>
+</span><span id="PemesananModel-41"><a href="#PemesananModel-41"><span class="linenos">41</span></a><span class="s2">            JOIN produk pr ON p.id_produk = pr.id_produk</span>
+</span><span id="PemesananModel-42"><a href="#PemesananModel-42"><span class="linenos">42</span></a><span class="s2">            WHERE p.id_pemesanan = </span><span class="si">%s</span>
+</span><span id="PemesananModel-43"><a href="#PemesananModel-43"><span class="linenos">43</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,))</span>
+</span><span id="PemesananModel-44"><a href="#PemesananModel-44"><span class="linenos">44</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+</span><span id="PemesananModel-45"><a href="#PemesananModel-45"><span class="linenos">45</span></a>    
+</span><span id="PemesananModel-46"><a href="#PemesananModel-46"><span class="linenos">46</span></a>    
+</span><span id="PemesananModel-47"><a href="#PemesananModel-47"><span class="linenos">47</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="PemesananModel-48"><a href="#PemesananModel-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_meja_by_pemesanan</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
+</span><span id="PemesananModel-49"><a href="#PemesananModel-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil meja yang digunakan dalam pemesanan tertentu &quot;&quot;&quot;</span>
+</span><span id="PemesananModel-50"><a href="#PemesananModel-50"><span class="linenos">50</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="PemesananModel-51"><a href="#PemesananModel-51"><span class="linenos">51</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="PemesananModel-52"><a href="#PemesananModel-52"><span class="linenos">52</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+</span><span id="PemesananModel-53"><a href="#PemesananModel-53"><span class="linenos">53</span></a>            <span class="s2">&quot;SELECT id_meja FROM pemesanan WHERE id_pemesanan=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="PemesananModel-54"><a href="#PemesananModel-54"><span class="linenos">54</span></a>            <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,)</span>
+</span><span id="PemesananModel-55"><a href="#PemesananModel-55"><span class="linenos">55</span></a>        <span class="p">)</span>
+</span><span id="PemesananModel-56"><a href="#PemesananModel-56"><span class="linenos">56</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+</span><span id="PemesananModel-57"><a href="#PemesananModel-57"><span class="linenos">57</span></a>    
+</span><span id="PemesananModel-58"><a href="#PemesananModel-58"><span class="linenos">58</span></a>    
+</span><span id="PemesananModel-59"><a href="#PemesananModel-59"><span class="linenos">59</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="PemesananModel-60"><a href="#PemesananModel-60"><span class="linenos">60</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
+</span><span id="PemesananModel-61"><a href="#PemesananModel-61"><span class="linenos">61</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Menghapus data pemesanan berdasarkan ID &quot;&quot;&quot;</span>
+</span><span id="PemesananModel-62"><a href="#PemesananModel-62"><span class="linenos">62</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="PemesananModel-63"><a href="#PemesananModel-63"><span class="linenos">63</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</span><span id="PemesananModel-64"><a href="#PemesananModel-64"><span class="linenos">64</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DELETE FROM pemesanan WHERE id_pemesanan=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,))</span>
+</span><span id="PemesananModel-65"><a href="#PemesananModel-65"><span class="linenos">65</span></a>        <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Model untuk Pemesanan</p>
+</div>
+
 
                             <div id="PemesananModel.get_all" class="classattr">
                                         <input id="PemesananModel.get_all-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
@@ -210,21 +232,24 @@ app<wbr>.<a href="./../models.html">models</a><wbr>.pemesanan_model    </h1>
 
     </div>
     <a class="headerlink" href="#PemesananModel.get_all"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PemesananModel.get_all-6"><a href="#PemesananModel.get_all-6"><span class="linenos"> 6</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="PemesananModel.get_all-7"><a href="#PemesananModel.get_all-7"><span class="linenos"> 7</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
-</span><span id="PemesananModel.get_all-8"><a href="#PemesananModel.get_all-8"><span class="linenos"> 8</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="PemesananModel.get_all-9"><a href="#PemesananModel.get_all-9"><span class="linenos"> 9</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="PemesananModel.get_all-10"><a href="#PemesananModel.get_all-10"><span class="linenos">10</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-</span><span id="PemesananModel.get_all-11"><a href="#PemesananModel.get_all-11"><span class="linenos">11</span></a><span class="s2">            SELECT p.*, pr.nama AS nama_produk</span>
-</span><span id="PemesananModel.get_all-12"><a href="#PemesananModel.get_all-12"><span class="linenos">12</span></a><span class="s2">            FROM pemesanan p</span>
-</span><span id="PemesananModel.get_all-13"><a href="#PemesananModel.get_all-13"><span class="linenos">13</span></a><span class="s2">            JOIN produk pr ON p.id_produk = pr.id_produk</span>
-</span><span id="PemesananModel.get_all-14"><a href="#PemesananModel.get_all-14"><span class="linenos">14</span></a><span class="s2">            ORDER BY p.id_pemesanan DESC</span>
-</span><span id="PemesananModel.get_all-15"><a href="#PemesananModel.get_all-15"><span class="linenos">15</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
-</span><span id="PemesananModel.get_all-16"><a href="#PemesananModel.get_all-16"><span class="linenos">16</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PemesananModel.get_all-7"><a href="#PemesananModel.get_all-7"><span class="linenos"> 7</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="PemesananModel.get_all-8"><a href="#PemesananModel.get_all-8"><span class="linenos"> 8</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
+</span><span id="PemesananModel.get_all-9"><a href="#PemesananModel.get_all-9"><span class="linenos"> 9</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil semua data pemesanan dari database &quot;&quot;&quot;</span>
+</span><span id="PemesananModel.get_all-10"><a href="#PemesananModel.get_all-10"><span class="linenos">10</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="PemesananModel.get_all-11"><a href="#PemesananModel.get_all-11"><span class="linenos">11</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="PemesananModel.get_all-12"><a href="#PemesananModel.get_all-12"><span class="linenos">12</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="PemesananModel.get_all-13"><a href="#PemesananModel.get_all-13"><span class="linenos">13</span></a><span class="s2">            SELECT p.*, pr.nama AS nama_produk</span>
+</span><span id="PemesananModel.get_all-14"><a href="#PemesananModel.get_all-14"><span class="linenos">14</span></a><span class="s2">            FROM pemesanan p</span>
+</span><span id="PemesananModel.get_all-15"><a href="#PemesananModel.get_all-15"><span class="linenos">15</span></a><span class="s2">            JOIN produk pr ON p.id_produk = pr.id_produk</span>
+</span><span id="PemesananModel.get_all-16"><a href="#PemesananModel.get_all-16"><span class="linenos">16</span></a><span class="s2">            ORDER BY p.id_pemesanan DESC</span>
+</span><span id="PemesananModel.get_all-17"><a href="#PemesananModel.get_all-17"><span class="linenos">17</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
+</span><span id="PemesananModel.get_all-18"><a href="#PemesananModel.get_all-18"><span class="linenos">18</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Mengambil semua data pemesanan dari database</p>
+</div>
+
 
                             </div>
                             <div id="PemesananModel.tambah" class="classattr">
@@ -239,19 +264,22 @@ app<wbr>.<a href="./../models.html">models</a><wbr>.pemesanan_model    </h1>
 
     </div>
     <a class="headerlink" href="#PemesananModel.tambah"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PemesananModel.tambah-18"><a href="#PemesananModel.tambah-18"><span class="linenos">18</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="PemesananModel.tambah-19"><a href="#PemesananModel.tambah-19"><span class="linenos">19</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">tambah</span><span class="p">(</span><span class="n">nama</span><span class="p">,</span> <span class="n">nohp</span><span class="p">,</span> <span class="n">id_meja</span><span class="p">,</span> <span class="n">id_produk</span><span class="p">,</span> <span class="n">id_admin</span><span class="p">):</span>
-</span><span id="PemesananModel.tambah-20"><a href="#PemesananModel.tambah-20"><span class="linenos">20</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="PemesananModel.tambah-21"><a href="#PemesananModel.tambah-21"><span class="linenos">21</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-</span><span id="PemesananModel.tambah-22"><a href="#PemesananModel.tambah-22"><span class="linenos">22</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-</span><span id="PemesananModel.tambah-23"><a href="#PemesananModel.tambah-23"><span class="linenos">23</span></a><span class="s2">            INSERT INTO pemesanan (nama_pelanggan, nohp_pelanggan, id_meja, id_produk, id_admin)</span>
-</span><span id="PemesananModel.tambah-24"><a href="#PemesananModel.tambah-24"><span class="linenos">24</span></a><span class="s2">            VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)</span>
-</span><span id="PemesananModel.tambah-25"><a href="#PemesananModel.tambah-25"><span class="linenos">25</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">nama</span><span class="p">,</span> <span class="n">nohp</span><span class="p">,</span> <span class="n">id_meja</span><span class="p">,</span> <span class="n">id_produk</span><span class="p">,</span> <span class="n">id_admin</span><span class="p">))</span>
-</span><span id="PemesananModel.tambah-26"><a href="#PemesananModel.tambah-26"><span class="linenos">26</span></a>        <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PemesananModel.tambah-21"><a href="#PemesananModel.tambah-21"><span class="linenos">21</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="PemesananModel.tambah-22"><a href="#PemesananModel.tambah-22"><span class="linenos">22</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">tambah</span><span class="p">(</span><span class="n">nama</span><span class="p">,</span> <span class="n">nohp</span><span class="p">,</span> <span class="n">id_meja</span><span class="p">,</span> <span class="n">id_produk</span><span class="p">,</span> <span class="n">id_admin</span><span class="p">):</span>
+</span><span id="PemesananModel.tambah-23"><a href="#PemesananModel.tambah-23"><span class="linenos">23</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Menambah data pemesanan baru ke database &quot;&quot;&quot;</span>
+</span><span id="PemesananModel.tambah-24"><a href="#PemesananModel.tambah-24"><span class="linenos">24</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="PemesananModel.tambah-25"><a href="#PemesananModel.tambah-25"><span class="linenos">25</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> 
+</span><span id="PemesananModel.tambah-26"><a href="#PemesananModel.tambah-26"><span class="linenos">26</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="PemesananModel.tambah-27"><a href="#PemesananModel.tambah-27"><span class="linenos">27</span></a><span class="s2">            INSERT INTO pemesanan (nama_pelanggan, nohp_pelanggan, id_meja, id_produk, id_admin)</span>
+</span><span id="PemesananModel.tambah-28"><a href="#PemesananModel.tambah-28"><span class="linenos">28</span></a><span class="s2">            VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)</span>
+</span><span id="PemesananModel.tambah-29"><a href="#PemesananModel.tambah-29"><span class="linenos">29</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">nama</span><span class="p">,</span> <span class="n">nohp</span><span class="p">,</span> <span class="n">id_meja</span><span class="p">,</span> <span class="n">id_produk</span><span class="p">,</span> <span class="n">id_admin</span><span class="p">))</span>
+</span><span id="PemesananModel.tambah-30"><a href="#PemesananModel.tambah-30"><span class="linenos">30</span></a>        <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Menambah data pemesanan baru ke database</p>
+</div>
+
 
                             </div>
                             <div id="PemesananModel.get_by_id" class="classattr">
@@ -266,21 +294,24 @@ app<wbr>.<a href="./../models.html">models</a><wbr>.pemesanan_model    </h1>
 
     </div>
     <a class="headerlink" href="#PemesananModel.get_by_id"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PemesananModel.get_by_id-28"><a href="#PemesananModel.get_by_id-28"><span class="linenos">28</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="PemesananModel.get_by_id-29"><a href="#PemesananModel.get_by_id-29"><span class="linenos">29</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_by_id</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
-</span><span id="PemesananModel.get_by_id-30"><a href="#PemesananModel.get_by_id-30"><span class="linenos">30</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="PemesananModel.get_by_id-31"><a href="#PemesananModel.get_by_id-31"><span class="linenos">31</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="PemesananModel.get_by_id-32"><a href="#PemesananModel.get_by_id-32"><span class="linenos">32</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-</span><span id="PemesananModel.get_by_id-33"><a href="#PemesananModel.get_by_id-33"><span class="linenos">33</span></a><span class="s2">            SELECT p.*, pr.nama AS nama_produk, pr.harga</span>
-</span><span id="PemesananModel.get_by_id-34"><a href="#PemesananModel.get_by_id-34"><span class="linenos">34</span></a><span class="s2">            FROM pemesanan p</span>
-</span><span id="PemesananModel.get_by_id-35"><a href="#PemesananModel.get_by_id-35"><span class="linenos">35</span></a><span class="s2">            JOIN produk pr ON p.id_produk = pr.id_produk</span>
-</span><span id="PemesananModel.get_by_id-36"><a href="#PemesananModel.get_by_id-36"><span class="linenos">36</span></a><span class="s2">            WHERE p.id_pemesanan = </span><span class="si">%s</span>
-</span><span id="PemesananModel.get_by_id-37"><a href="#PemesananModel.get_by_id-37"><span class="linenos">37</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,))</span>
-</span><span id="PemesananModel.get_by_id-38"><a href="#PemesananModel.get_by_id-38"><span class="linenos">38</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PemesananModel.get_by_id-33"><a href="#PemesananModel.get_by_id-33"><span class="linenos">33</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="PemesananModel.get_by_id-34"><a href="#PemesananModel.get_by_id-34"><span class="linenos">34</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_by_id</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
+</span><span id="PemesananModel.get_by_id-35"><a href="#PemesananModel.get_by_id-35"><span class="linenos">35</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil data pemesanan berdasarkan ID &quot;&quot;&quot;</span>
+</span><span id="PemesananModel.get_by_id-36"><a href="#PemesananModel.get_by_id-36"><span class="linenos">36</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="PemesananModel.get_by_id-37"><a href="#PemesananModel.get_by_id-37"><span class="linenos">37</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="PemesananModel.get_by_id-38"><a href="#PemesananModel.get_by_id-38"><span class="linenos">38</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="PemesananModel.get_by_id-39"><a href="#PemesananModel.get_by_id-39"><span class="linenos">39</span></a><span class="s2">            SELECT p.*, pr.nama AS nama_produk, pr.harga</span>
+</span><span id="PemesananModel.get_by_id-40"><a href="#PemesananModel.get_by_id-40"><span class="linenos">40</span></a><span class="s2">            FROM pemesanan p</span>
+</span><span id="PemesananModel.get_by_id-41"><a href="#PemesananModel.get_by_id-41"><span class="linenos">41</span></a><span class="s2">            JOIN produk pr ON p.id_produk = pr.id_produk</span>
+</span><span id="PemesananModel.get_by_id-42"><a href="#PemesananModel.get_by_id-42"><span class="linenos">42</span></a><span class="s2">            WHERE p.id_pemesanan = </span><span class="si">%s</span>
+</span><span id="PemesananModel.get_by_id-43"><a href="#PemesananModel.get_by_id-43"><span class="linenos">43</span></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,))</span>
+</span><span id="PemesananModel.get_by_id-44"><a href="#PemesananModel.get_by_id-44"><span class="linenos">44</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Mengambil data pemesanan berdasarkan ID</p>
+</div>
+
 
                             </div>
                             <div id="PemesananModel.get_meja_by_pemesanan" class="classattr">
@@ -295,19 +326,22 @@ app<wbr>.<a href="./../models.html">models</a><wbr>.pemesanan_model    </h1>
 
     </div>
     <a class="headerlink" href="#PemesananModel.get_meja_by_pemesanan"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PemesananModel.get_meja_by_pemesanan-40"><a href="#PemesananModel.get_meja_by_pemesanan-40"><span class="linenos">40</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="PemesananModel.get_meja_by_pemesanan-41"><a href="#PemesananModel.get_meja_by_pemesanan-41"><span class="linenos">41</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_meja_by_pemesanan</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
-</span><span id="PemesananModel.get_meja_by_pemesanan-42"><a href="#PemesananModel.get_meja_by_pemesanan-42"><span class="linenos">42</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="PemesananModel.get_meja_by_pemesanan-43"><a href="#PemesananModel.get_meja_by_pemesanan-43"><span class="linenos">43</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="PemesananModel.get_meja_by_pemesanan-44"><a href="#PemesananModel.get_meja_by_pemesanan-44"><span class="linenos">44</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-</span><span id="PemesananModel.get_meja_by_pemesanan-45"><a href="#PemesananModel.get_meja_by_pemesanan-45"><span class="linenos">45</span></a>            <span class="s2">&quot;SELECT id_meja FROM pemesanan WHERE id_pemesanan=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-</span><span id="PemesananModel.get_meja_by_pemesanan-46"><a href="#PemesananModel.get_meja_by_pemesanan-46"><span class="linenos">46</span></a>            <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,)</span>
-</span><span id="PemesananModel.get_meja_by_pemesanan-47"><a href="#PemesananModel.get_meja_by_pemesanan-47"><span class="linenos">47</span></a>        <span class="p">)</span>
-</span><span id="PemesananModel.get_meja_by_pemesanan-48"><a href="#PemesananModel.get_meja_by_pemesanan-48"><span class="linenos">48</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PemesananModel.get_meja_by_pemesanan-47"><a href="#PemesananModel.get_meja_by_pemesanan-47"><span class="linenos">47</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="PemesananModel.get_meja_by_pemesanan-48"><a href="#PemesananModel.get_meja_by_pemesanan-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_meja_by_pemesanan</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
+</span><span id="PemesananModel.get_meja_by_pemesanan-49"><a href="#PemesananModel.get_meja_by_pemesanan-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil meja yang digunakan dalam pemesanan tertentu &quot;&quot;&quot;</span>
+</span><span id="PemesananModel.get_meja_by_pemesanan-50"><a href="#PemesananModel.get_meja_by_pemesanan-50"><span class="linenos">50</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="PemesananModel.get_meja_by_pemesanan-51"><a href="#PemesananModel.get_meja_by_pemesanan-51"><span class="linenos">51</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="PemesananModel.get_meja_by_pemesanan-52"><a href="#PemesananModel.get_meja_by_pemesanan-52"><span class="linenos">52</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+</span><span id="PemesananModel.get_meja_by_pemesanan-53"><a href="#PemesananModel.get_meja_by_pemesanan-53"><span class="linenos">53</span></a>            <span class="s2">&quot;SELECT id_meja FROM pemesanan WHERE id_pemesanan=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="PemesananModel.get_meja_by_pemesanan-54"><a href="#PemesananModel.get_meja_by_pemesanan-54"><span class="linenos">54</span></a>            <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,)</span>
+</span><span id="PemesananModel.get_meja_by_pemesanan-55"><a href="#PemesananModel.get_meja_by_pemesanan-55"><span class="linenos">55</span></a>        <span class="p">)</span>
+</span><span id="PemesananModel.get_meja_by_pemesanan-56"><a href="#PemesananModel.get_meja_by_pemesanan-56"><span class="linenos">56</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Mengambil meja yang digunakan dalam pemesanan tertentu</p>
+</div>
+
 
                             </div>
                             <div id="PemesananModel.delete" class="classattr">
@@ -322,16 +356,19 @@ app<wbr>.<a href="./../models.html">models</a><wbr>.pemesanan_model    </h1>
 
     </div>
     <a class="headerlink" href="#PemesananModel.delete"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PemesananModel.delete-50"><a href="#PemesananModel.delete-50"><span class="linenos">50</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="PemesananModel.delete-51"><a href="#PemesananModel.delete-51"><span class="linenos">51</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
-</span><span id="PemesananModel.delete-52"><a href="#PemesananModel.delete-52"><span class="linenos">52</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="PemesananModel.delete-53"><a href="#PemesananModel.delete-53"><span class="linenos">53</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-</span><span id="PemesananModel.delete-54"><a href="#PemesananModel.delete-54"><span class="linenos">54</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DELETE FROM pemesanan WHERE id_pemesanan=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,))</span>
-</span><span id="PemesananModel.delete-55"><a href="#PemesananModel.delete-55"><span class="linenos">55</span></a>        <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PemesananModel.delete-59"><a href="#PemesananModel.delete-59"><span class="linenos">59</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="PemesananModel.delete-60"><a href="#PemesananModel.delete-60"><span class="linenos">60</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">id_pemesanan</span><span class="p">):</span>
+</span><span id="PemesananModel.delete-61"><a href="#PemesananModel.delete-61"><span class="linenos">61</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Menghapus data pemesanan berdasarkan ID &quot;&quot;&quot;</span>
+</span><span id="PemesananModel.delete-62"><a href="#PemesananModel.delete-62"><span class="linenos">62</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="PemesananModel.delete-63"><a href="#PemesananModel.delete-63"><span class="linenos">63</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</span><span id="PemesananModel.delete-64"><a href="#PemesananModel.delete-64"><span class="linenos">64</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DELETE FROM pemesanan WHERE id_pemesanan=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_pemesanan</span><span class="p">,))</span>
+</span><span id="PemesananModel.delete-65"><a href="#PemesananModel.delete-65"><span class="linenos">65</span></a>        <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Menghapus data pemesanan berdasarkan ID</p>
+</div>
+
 
                             </div>
                 </section>

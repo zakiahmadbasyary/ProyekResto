@@ -1,11 +1,14 @@
 from flask import Blueprint, render_template, request, redirect, session, flash
 from app.models.admin_model import AdminModel
 from app.database import get_db
+from app.models.meja_model import MejaModel
+from app.models.pemesanan_model import PemesananModel
 
 admin = Blueprint('admin', __name__)
 
 @admin.route('/login', methods=['GET', 'POST'])
 def login():
+    """Halaman login admin"""
     if request.method == 'POST':
         user = request.form['username']
         pw = request.form['password']
@@ -13,6 +16,7 @@ def login():
         admin_data = AdminModel.login(user, pw)
 
         if admin_data:
+            """Login berhasil"""
             session['admin_logged_in'] = True
             session['admin_name'] = admin_data['username']
             return redirect('/dashboard')
@@ -23,11 +27,32 @@ def login():
 
 @admin.route('/logout')
 def logout():
+    """Logout admin"""
     session.clear()
     return redirect('/pengguna')
 
+@admin.route('/dashboard')
+def dashboard():
+    """Halaman dashboard admin"""
+    if 'admin_logged_in' not in session:
+        return redirect('/login')
+
+    # Ambil data
+    pemesanan = PemesananModel.get_all()
+    meja = MejaModel.get_all()
+
+    # Render halaman dashboard
+    return render_template(
+        'dashboard.html',
+        pemesanan=pemesanan,
+        meja=meja,
+        admin_name=session.get('admin_name')
+    )
+
+
 @admin.route('/ubah_status_meja', methods=['POST'])
 def ubah_status_meja():
+    """Ubah status meja"""
     if 'admin_logged_in' not in session:
         return redirect('/login')
 
@@ -43,6 +68,7 @@ def ubah_status_meja():
 
 @admin.route('/pemesanan/<int:id>/struk')
 def struk(id):
+    """Tampilkan struk pemesanan"""
     if 'admin_logged_in' not in session:
         return redirect('/login')
 
@@ -56,6 +82,7 @@ def struk(id):
 
 @admin.route('/pemesanan/<int:id>/hapus', methods=['POST'])
 def hapus_pemesanan(id):
+    """Hapus pemesanan dan kosongkan meja"""
     if 'admin_logged_in' not in session:
         return redirect('/login')
 

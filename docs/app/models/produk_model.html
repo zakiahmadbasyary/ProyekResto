@@ -66,20 +66,24 @@ app<wbr>.<a href="./../models.html">models</a><wbr>.produk_model    </h1>
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">app.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_db</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ProdukModel</span><span class="p">:</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM produk&quot;</span><span class="p">)</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_by_id</span><span class="p">(</span><span class="n">id_produk</span><span class="p">):</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM produk WHERE id_produk=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_produk</span><span class="p">,))</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot; Model untuk Produk &quot;&quot;&quot;</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil semua data produk dari database &quot;&quot;&quot;</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM produk&quot;</span><span class="p">)</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_by_id</span><span class="p">(</span><span class="n">id_produk</span><span class="p">):</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil data produk berdasarkan ID &quot;&quot;&quot;</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM produk WHERE id_produk=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_produk</span><span class="p">,))</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
 </span></pre></div>
 
 
@@ -96,24 +100,30 @@ app<wbr>.<a href="./../models.html">models</a><wbr>.produk_model    </h1>
     </div>
     <a class="headerlink" href="#ProdukModel"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="ProdukModel-4"><a href="#ProdukModel-4"><span class="linenos"> 4</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ProdukModel</span><span class="p">:</span>
-</span><span id="ProdukModel-5"><a href="#ProdukModel-5"><span class="linenos"> 5</span></a>
-</span><span id="ProdukModel-6"><a href="#ProdukModel-6"><span class="linenos"> 6</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="ProdukModel-7"><a href="#ProdukModel-7"><span class="linenos"> 7</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
-</span><span id="ProdukModel-8"><a href="#ProdukModel-8"><span class="linenos"> 8</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="ProdukModel-9"><a href="#ProdukModel-9"><span class="linenos"> 9</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="ProdukModel-10"><a href="#ProdukModel-10"><span class="linenos">10</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM produk&quot;</span><span class="p">)</span>
-</span><span id="ProdukModel-11"><a href="#ProdukModel-11"><span class="linenos">11</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
-</span><span id="ProdukModel-12"><a href="#ProdukModel-12"><span class="linenos">12</span></a>
-</span><span id="ProdukModel-13"><a href="#ProdukModel-13"><span class="linenos">13</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="ProdukModel-14"><a href="#ProdukModel-14"><span class="linenos">14</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_by_id</span><span class="p">(</span><span class="n">id_produk</span><span class="p">):</span>
-</span><span id="ProdukModel-15"><a href="#ProdukModel-15"><span class="linenos">15</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="ProdukModel-16"><a href="#ProdukModel-16"><span class="linenos">16</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="ProdukModel-17"><a href="#ProdukModel-17"><span class="linenos">17</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM produk WHERE id_produk=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_produk</span><span class="p">,))</span>
-</span><span id="ProdukModel-18"><a href="#ProdukModel-18"><span class="linenos">18</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+</span><span id="ProdukModel-5"><a href="#ProdukModel-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot; Model untuk Produk &quot;&quot;&quot;</span>
+</span><span id="ProdukModel-6"><a href="#ProdukModel-6"><span class="linenos"> 6</span></a>    
+</span><span id="ProdukModel-7"><a href="#ProdukModel-7"><span class="linenos"> 7</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="ProdukModel-8"><a href="#ProdukModel-8"><span class="linenos"> 8</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
+</span><span id="ProdukModel-9"><a href="#ProdukModel-9"><span class="linenos"> 9</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil semua data produk dari database &quot;&quot;&quot;</span>
+</span><span id="ProdukModel-10"><a href="#ProdukModel-10"><span class="linenos">10</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="ProdukModel-11"><a href="#ProdukModel-11"><span class="linenos">11</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="ProdukModel-12"><a href="#ProdukModel-12"><span class="linenos">12</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM produk&quot;</span><span class="p">)</span>
+</span><span id="ProdukModel-13"><a href="#ProdukModel-13"><span class="linenos">13</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+</span><span id="ProdukModel-14"><a href="#ProdukModel-14"><span class="linenos">14</span></a>
+</span><span id="ProdukModel-15"><a href="#ProdukModel-15"><span class="linenos">15</span></a>    
+</span><span id="ProdukModel-16"><a href="#ProdukModel-16"><span class="linenos">16</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="ProdukModel-17"><a href="#ProdukModel-17"><span class="linenos">17</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_by_id</span><span class="p">(</span><span class="n">id_produk</span><span class="p">):</span>
+</span><span id="ProdukModel-18"><a href="#ProdukModel-18"><span class="linenos">18</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil data produk berdasarkan ID &quot;&quot;&quot;</span>
+</span><span id="ProdukModel-19"><a href="#ProdukModel-19"><span class="linenos">19</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="ProdukModel-20"><a href="#ProdukModel-20"><span class="linenos">20</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="ProdukModel-21"><a href="#ProdukModel-21"><span class="linenos">21</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM produk WHERE id_produk=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_produk</span><span class="p">,))</span>
+</span><span id="ProdukModel-22"><a href="#ProdukModel-22"><span class="linenos">22</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Model untuk Produk</p>
+</div>
+
 
                             <div id="ProdukModel.get_all" class="classattr">
                                         <input id="ProdukModel.get_all-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
@@ -127,16 +137,19 @@ app<wbr>.<a href="./../models.html">models</a><wbr>.produk_model    </h1>
 
     </div>
     <a class="headerlink" href="#ProdukModel.get_all"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ProdukModel.get_all-6"><a href="#ProdukModel.get_all-6"><span class="linenos"> 6</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="ProdukModel.get_all-7"><a href="#ProdukModel.get_all-7"><span class="linenos"> 7</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
-</span><span id="ProdukModel.get_all-8"><a href="#ProdukModel.get_all-8"><span class="linenos"> 8</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="ProdukModel.get_all-9"><a href="#ProdukModel.get_all-9"><span class="linenos"> 9</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="ProdukModel.get_all-10"><a href="#ProdukModel.get_all-10"><span class="linenos">10</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM produk&quot;</span><span class="p">)</span>
-</span><span id="ProdukModel.get_all-11"><a href="#ProdukModel.get_all-11"><span class="linenos">11</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ProdukModel.get_all-7"><a href="#ProdukModel.get_all-7"><span class="linenos"> 7</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="ProdukModel.get_all-8"><a href="#ProdukModel.get_all-8"><span class="linenos"> 8</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
+</span><span id="ProdukModel.get_all-9"><a href="#ProdukModel.get_all-9"><span class="linenos"> 9</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil semua data produk dari database &quot;&quot;&quot;</span>
+</span><span id="ProdukModel.get_all-10"><a href="#ProdukModel.get_all-10"><span class="linenos">10</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="ProdukModel.get_all-11"><a href="#ProdukModel.get_all-11"><span class="linenos">11</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="ProdukModel.get_all-12"><a href="#ProdukModel.get_all-12"><span class="linenos">12</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM produk&quot;</span><span class="p">)</span>
+</span><span id="ProdukModel.get_all-13"><a href="#ProdukModel.get_all-13"><span class="linenos">13</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Mengambil semua data produk dari database</p>
+</div>
+
 
                             </div>
                             <div id="ProdukModel.get_by_id" class="classattr">
@@ -151,16 +164,19 @@ app<wbr>.<a href="./../models.html">models</a><wbr>.produk_model    </h1>
 
     </div>
     <a class="headerlink" href="#ProdukModel.get_by_id"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ProdukModel.get_by_id-13"><a href="#ProdukModel.get_by_id-13"><span class="linenos">13</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="ProdukModel.get_by_id-14"><a href="#ProdukModel.get_by_id-14"><span class="linenos">14</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_by_id</span><span class="p">(</span><span class="n">id_produk</span><span class="p">):</span>
-</span><span id="ProdukModel.get_by_id-15"><a href="#ProdukModel.get_by_id-15"><span class="linenos">15</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="ProdukModel.get_by_id-16"><a href="#ProdukModel.get_by_id-16"><span class="linenos">16</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="ProdukModel.get_by_id-17"><a href="#ProdukModel.get_by_id-17"><span class="linenos">17</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM produk WHERE id_produk=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_produk</span><span class="p">,))</span>
-</span><span id="ProdukModel.get_by_id-18"><a href="#ProdukModel.get_by_id-18"><span class="linenos">18</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ProdukModel.get_by_id-16"><a href="#ProdukModel.get_by_id-16"><span class="linenos">16</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="ProdukModel.get_by_id-17"><a href="#ProdukModel.get_by_id-17"><span class="linenos">17</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_by_id</span><span class="p">(</span><span class="n">id_produk</span><span class="p">):</span>
+</span><span id="ProdukModel.get_by_id-18"><a href="#ProdukModel.get_by_id-18"><span class="linenos">18</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil data produk berdasarkan ID &quot;&quot;&quot;</span>
+</span><span id="ProdukModel.get_by_id-19"><a href="#ProdukModel.get_by_id-19"><span class="linenos">19</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="ProdukModel.get_by_id-20"><a href="#ProdukModel.get_by_id-20"><span class="linenos">20</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="ProdukModel.get_by_id-21"><a href="#ProdukModel.get_by_id-21"><span class="linenos">21</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM produk WHERE id_produk=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">id_produk</span><span class="p">,))</span>
+</span><span id="ProdukModel.get_by_id-22"><a href="#ProdukModel.get_by_id-22"><span class="linenos">22</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Mengambil data produk berdasarkan ID</p>
+</div>
+
 
                             </div>
                 </section>

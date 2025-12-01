@@ -63,13 +63,15 @@ app<wbr>.<a href="./../models.html">models</a><wbr>.meja_model    </h1>
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">app.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_db</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="k">class</span><span class="w"> </span><span class="nc">MejaModel</span><span class="p">:</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM meja ORDER BY id_meja ASC&quot;</span><span class="p">)</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot; Model untuk Meja &quot;&quot;&quot;</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil semua data meja dari database &quot;&quot;&quot;</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM meja ORDER BY id_meja ASC&quot;</span><span class="p">)</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
 </span></pre></div>
 
 
@@ -86,17 +88,21 @@ app<wbr>.<a href="./../models.html">models</a><wbr>.meja_model    </h1>
     </div>
     <a class="headerlink" href="#MejaModel"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="MejaModel-4"><a href="#MejaModel-4"><span class="linenos"> 4</span></a><span class="k">class</span><span class="w"> </span><span class="nc">MejaModel</span><span class="p">:</span>
-</span><span id="MejaModel-5"><a href="#MejaModel-5"><span class="linenos"> 5</span></a>
-</span><span id="MejaModel-6"><a href="#MejaModel-6"><span class="linenos"> 6</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="MejaModel-7"><a href="#MejaModel-7"><span class="linenos"> 7</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
-</span><span id="MejaModel-8"><a href="#MejaModel-8"><span class="linenos"> 8</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="MejaModel-9"><a href="#MejaModel-9"><span class="linenos"> 9</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="MejaModel-10"><a href="#MejaModel-10"><span class="linenos">10</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM meja ORDER BY id_meja ASC&quot;</span><span class="p">)</span>
-</span><span id="MejaModel-11"><a href="#MejaModel-11"><span class="linenos">11</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+</span><span id="MejaModel-5"><a href="#MejaModel-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot; Model untuk Meja &quot;&quot;&quot;</span>
+</span><span id="MejaModel-6"><a href="#MejaModel-6"><span class="linenos"> 6</span></a>    
+</span><span id="MejaModel-7"><a href="#MejaModel-7"><span class="linenos"> 7</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="MejaModel-8"><a href="#MejaModel-8"><span class="linenos"> 8</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
+</span><span id="MejaModel-9"><a href="#MejaModel-9"><span class="linenos"> 9</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil semua data meja dari database &quot;&quot;&quot;</span>
+</span><span id="MejaModel-10"><a href="#MejaModel-10"><span class="linenos">10</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="MejaModel-11"><a href="#MejaModel-11"><span class="linenos">11</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="MejaModel-12"><a href="#MejaModel-12"><span class="linenos">12</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM meja ORDER BY id_meja ASC&quot;</span><span class="p">)</span>
+</span><span id="MejaModel-13"><a href="#MejaModel-13"><span class="linenos">13</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Model untuk Meja</p>
+</div>
+
 
                             <div id="MejaModel.get_all" class="classattr">
                                         <input id="MejaModel.get_all-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
@@ -110,16 +116,19 @@ app<wbr>.<a href="./../models.html">models</a><wbr>.meja_model    </h1>
 
     </div>
     <a class="headerlink" href="#MejaModel.get_all"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="MejaModel.get_all-6"><a href="#MejaModel.get_all-6"><span class="linenos"> 6</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="MejaModel.get_all-7"><a href="#MejaModel.get_all-7"><span class="linenos"> 7</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
-</span><span id="MejaModel.get_all-8"><a href="#MejaModel.get_all-8"><span class="linenos"> 8</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
-</span><span id="MejaModel.get_all-9"><a href="#MejaModel.get_all-9"><span class="linenos"> 9</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="MejaModel.get_all-10"><a href="#MejaModel.get_all-10"><span class="linenos">10</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM meja ORDER BY id_meja ASC&quot;</span><span class="p">)</span>
-</span><span id="MejaModel.get_all-11"><a href="#MejaModel.get_all-11"><span class="linenos">11</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="MejaModel.get_all-7"><a href="#MejaModel.get_all-7"><span class="linenos"> 7</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="MejaModel.get_all-8"><a href="#MejaModel.get_all-8"><span class="linenos"> 8</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">():</span>
+</span><span id="MejaModel.get_all-9"><a href="#MejaModel.get_all-9"><span class="linenos"> 9</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Mengambil semua data meja dari database &quot;&quot;&quot;</span>
+</span><span id="MejaModel.get_all-10"><a href="#MejaModel.get_all-10"><span class="linenos">10</span></a>        <span class="n">db</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()</span>
+</span><span id="MejaModel.get_all-11"><a href="#MejaModel.get_all-11"><span class="linenos">11</span></a>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">(</span><span class="n">dictionary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="MejaModel.get_all-12"><a href="#MejaModel.get_all-12"><span class="linenos">12</span></a>        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM meja ORDER BY id_meja ASC&quot;</span><span class="p">)</span>
+</span><span id="MejaModel.get_all-13"><a href="#MejaModel.get_all-13"><span class="linenos">13</span></a>        <span class="k">return</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Mengambil semua data meja dari database</p>
+</div>
+
 
                             </div>
                 </section>
