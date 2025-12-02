@@ -61,10 +61,11 @@ ProyekResto/
 │ └── templates/ # File HTML
 │
 ├── docs/  # documentation pdocs
-│ ├── models
-│ ├── routes
+│ ├── models/
+│ ├── routes/
 │ └── search.js
 │
+├── test/
 ├── run.py 
 ├── venv/ (opsional)
 ├── requirements.txt
